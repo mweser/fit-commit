@@ -23,7 +23,8 @@ module FitCommit
         run_validators
         return EXIT_CODE_ALLOW_COMMIT if [errors, warnings].all?(&:empty?)
         print_results
-        errors.empty? || ask_force_commit
+        errors.empty?
+        #  || ask_force_commit
       end
 
       if allow_commit
@@ -49,13 +50,13 @@ module FitCommit
       edit_message && retry
     end
 
-    def ask_force_commit
-      return unless interactive?
-      stderr.print "\nForce commit? [y/n/e] "
-      input = stdin.gets
-      fail StartOverOnEditException if input =~ /e/i
-      input =~ /y/i
-    end
+    # def ask_force_commit
+    #   return unless interactive?
+    #   stderr.print "\nForce commit? [y/n/e] "
+    #   input = stdin.gets
+    #   fail StartOverOnEditException if input =~ /e/i
+    #   input =~ /y/i
+    # end
 
     def interactive?
       stdin.tty?
