@@ -23,7 +23,7 @@ module FitCommit
         run_validators
         return EXIT_CODE_ALLOW_COMMIT if [errors, warnings].all?(&:empty?)
         print_results
-        errors.empty? || ask_force_commit
+        errors.empty?
       end
 
       if allow_commit
